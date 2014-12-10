@@ -1,7 +1,10 @@
 
 #import"c:\program files\common files\system\ado\msado15.dll" no_namespace rename("EOF", "adoEOF")
 #include <icrsint.h>
-#include<iostream>
+#include <iostream>
+#include <string>
+#include <comdef.h>
+
 using namespace std;
 
 
@@ -64,11 +67,36 @@ _RecordsetPtr& GetRecordset(_bstr_t SQL)
       sql="select * from testDB";
       _bstr_t bstr_t(sql.c_str());
       m_pRecordset= GetRecordset(bstr_t);
-      m_pRecordset->AddNew();
-      m_pRecordset->PutCollect("ID", _variant_t("3"));
-      m_pRecordset->PutCollect("Name", _variant_t("edward"));
-      m_pRecordset->PutCollect("Age", _variant_t("18"));
-      m_pRecordset->Update();
+
+	  _variant_t vID;
+	  _variant_t vName;
+	  _variant_t vAge;
+	  while(!m_pRecordset->adoEOF)
+	  {
+		  //取得第1列的值,从0开始计数，你也可以直接给出列的名称，如下一行
+		  vID = m_pRecordset->GetCollect(_variant_t((long)0));
+		  vName = m_pRecordset->GetCollect("ID");
+		  cout<<vID.iVal<<vName.intVal<<endl;
+		  //cout<<(LPCTSTR)(_bstr_t)vAge<<endl;
+
+
+		  m_pRecordset->MoveNext(); 
+	  }
+
+	  //添加3条新的纪录
+	  for(int i=0;i<3;i++){
+		  m_pRecordset->AddNew();
+          m_pRecordset->PutCollect("ID", _variant_t("3"));
+          m_pRecordset->PutCollect("Name", _variant_t("edward"));
+          m_pRecordset->PutCollect("Age", _variant_t("18"));
+	  }
+	   m_pRecordset->Update();
 	  cout<<"添加成功"<<endl;
+
+	 //移到首条记录  
+    //m_pRecordset->MoveFirst();      
+    //删除当前记录  
+    //m_pRecordset->Delete(adAffectCurrent);
+
       ExitConnect();
   }
