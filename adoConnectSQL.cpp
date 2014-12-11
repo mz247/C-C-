@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <comdef.h>
+#include <comutil.h> 
 
 using namespace std;
 
@@ -75,14 +76,18 @@ _RecordsetPtr& GetRecordset(_bstr_t SQL)
 	  {
 		  //取得第1列的值,从0开始计数，你也可以直接给出列的名称，如下一行
 		  vID = m_pRecordset->GetCollect(_variant_t((long)0));
-		  vName = m_pRecordset->GetCollect("ID");
-		  cout<<vID.iVal<<vName.intVal<<endl;
-		  //cout<<(LPCTSTR)(_bstr_t)vAge<<endl;
+		  vName = m_pRecordset->GetCollect("Name");
+		  vName = m_pRecordset->GetCollect("Age");
+		  cout<<vID.iVal<<endl;
+		  //cout<<(char*)(_bstr_t)vName<<endl;
+		  //cout<<(LPCTSTR)(_bstr_t)vName<<endl;
+		  cout<<vName.bstrVal<<endl;
+		  cout<<vAge.intVal<<endl;
 
 
-		  m_pRecordset->MoveNext(); 
-	  }
-
+		  m_pRecordset->MoveNext();
+	
+  }
 	  //添加3条新的纪录
 	  for(int i=0;i<3;i++){
 		  m_pRecordset->AddNew();
