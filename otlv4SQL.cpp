@@ -26,7 +26,7 @@ for(int i=1;i<=100;++i){
   //sprintf(tmp,"Name%d",i);
 //#endif
 //#else
-  sprintf(tmp,"Name%d",i);
+  //sprintf(tmp,"Name%d",i);
 //#endif
   o<<static_cast<float>(i)<<tmp;
  }
