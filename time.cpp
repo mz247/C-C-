@@ -6,6 +6,11 @@
 using namespace std;
 int main()
 {
+	//字符指针初始化
+	//char* Now_time = (char*)malloc(30)
+	//char* Now_date = (char*)malloc(30)
+	//char* buffer = (char*)malloc(30)
+	//数据初始化
 	char Now_time[30];
 	char Now_date[30];
 	char buffer[64]; 
